@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Notes from './pages/Notes'
+import Create from './pages/Create'
+import { ThemeProvider, createTheme } from '@mui/material';
+import { deepPurple } from '@mui/material/colors';
 
-function App() {
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: deepPurple
+  },
+  typography:{
+    fontFamily:'Quicksand',
+    fontWeightLight:400,
+    fontWeightRegular:500,
+    fontWeightMedium:600,
+    fontWeightBold:700
+  }
+});
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route>
+            <Route path="notes" element={<Notes />} />
+            <Route path="create" element={<Create />} />
+            {/* <Route path="*" element={<NoPage />} /> */}
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      </ThemeProvider>
+
+  )
 }
 
-export default App;
+export default App
